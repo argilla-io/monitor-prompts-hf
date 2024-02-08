@@ -135,11 +135,15 @@ def main() -> None:
         gr.Markdown(
             """
             # Prompt Curators Annotation Tracker
+
+            This Gradio dashboard shows the progress of `data-is-better-together`'s open prompt curation tasks.
             """
         )
         gr.Markdown(
             """
-            ## Annotated and Pending Records
+            ## Annotated vs Pending Records
+
+            How many records have been annotated, how many are still pending?
             """
         )
         plot = gr.Plot(label="Plot")
