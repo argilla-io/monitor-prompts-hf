@@ -134,16 +134,17 @@ def main() -> None:
     with gr.Blocks() as demo:
         gr.Markdown(
             """
-            # Prompt Curators Annotation Tracker
+            # 🗣️ The Prompt Collective Dashboad
 
-            This Gradio dashboard shows the progress of `data-is-better-together`'s open prompt curation tasks.
+            This Gradio dashboard shows the progress of the first "Data is Better Together" initiative to understand and collect good quality and diverse prompt for the OSS AI community.
+            If you want to contribute to OSS AI, join [the Prompt Collective HF Space](https://huggingface.co/spaces/DIBT/prompt-collective).
             """
         )
         gr.Markdown(
             """
-            ## Annotated vs Pending Records
+            ## 🚀 Contributors Progress
 
-            How many records have been annotated, how many are still pending?
+            How many records have been submitted, how many are still pending?
             """
         )
         plot = gr.Plot(label="Plot")
@@ -154,13 +155,13 @@ def main() -> None:
         )
         gr.Markdown(
             """
-            ## Annotator Hall of Fame
-            The top 5 users with the most annotations are
+            ## 👾 Contributors Hall of Fame
+            The top 5 users with the most responses are:
             """
         )
         gr.Dataframe(
             value=top5_dataframe,
-            headers=["Name", "Annotated Records"],
+            headers=["Name", "Submitted Responses"],
             datatype=[
                 "str",
                 "number",
