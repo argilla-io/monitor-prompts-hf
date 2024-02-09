@@ -99,6 +99,33 @@ def donut_chart() -> alt.Chart:
     return chart
 
 
+def kpi_chart() -> alt.Chart:
+    """
+    This function returns a KPI chart with the total amount of annotators.
+
+    Returns:
+        An altair chart with the KPI chart.
+    """
+
+    # Obtain the total amount of annotators
+    _, target_dataset = obtain_source_target_datasets()
+    user_ids_annotations = get_user_annotations_dictionary(target_dataset)
+    total_annotators = len(user_ids_annotations)
+
+    # Assuming you have a DataFrame with user data, create a sample DataFrame
+    data = pd.DataFrame({"Category": ["Total Annotators"], "Value": [total_annotators]})
+
+    # Create Altair chart
+    chart = (
+        alt.Chart(data)
+        .mark_text(fontSize=100, align="center", baseline="middle", color="steelblue")
+        .encode(text="Value:N")
+        .properties(title="Number of Annotators", width=250, height=200)
+    )
+
+    return chart
+
+
 def obtain_top_5_users(user_ids_annotations: Dict[str, int]) -> pd.DataFrame:
     """
     This function returns the top 5 users with the most annotations.
@@ -153,23 +180,34 @@ def main() -> None:
             inputs=[],
             outputs=[plot],
         )
+
         gr.Markdown(
             """
             ## 👾 Contributors Hall of Fame
-            The top 5 users with the most responses are:
+            The number of all annotators and the top 5 users with the most responses are:
             """
         )
-        gr.Dataframe(
-            value=top5_dataframe,
-            headers=["Name", "Submitted Responses"],
-            datatype=[
-                "str",
-                "number",
-            ],
-            row_count=5,
-            col_count=(2, "fixed"),
-            interactive=False,
-        ),
+
+        with gr.Row():
+
+            plot2 = gr.Plot(label="Plot")
+            demo.load(
+                kpi_chart,
+                inputs=[],
+                outputs=[plot2],
+            )
+
+            gr.Dataframe(
+                value=top5_dataframe,
+                headers=["Name", "Annotated Records"],
+                datatype=[
+                    "str",
+                    "number",
+                ],
+                row_count=5,
+                col_count=(2, "fixed"),
+                interactive=False,
+            ),
 
     # Launch the Gradio interface
     demo.launch()
