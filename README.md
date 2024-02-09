@@ -1,2 +1,2 @@
-# monitor-prompts-hf
-A Gradio app to monitor annotation effort done by users using the Argilla HF Space over the prompt dataset
+# The Prompt Collective Dashboard
+A Gradio app to monitor a collective effort from the Open Source AI Community understanding and collecting good and diverse prompt.
